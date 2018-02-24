@@ -1,0 +1,50 @@
+{% extends "admin_base.html" %}
+{% block head %}
+    {{ super() }}
+    <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+{% endblock %}
+{% block right %}
+    {{ pagedown.include_pagedown() }}
+    {% for message in get_flashed_messages(True,["api"]) %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            {{ message[1] }}
+        </div>
+    {% endfor %}
+    {% import "bootstrap/wtf.html" as wtf %}
+
+    <div class="edit_article">
+        <form action="" method="post" class="form" role="form">
+            {{ form.hidden_tag() }}
+            <div class="form-group  required">
+                {{ form.api(id="api", class="form-control", placeholder=form.api.label.text ) }}
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form.method(id="method", class="form-control", placeholder=form.method.label.text ) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form.desc(type="text", class="form-control", id="desc", autocomplete="off", placeholder=form.desc.label.text) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="panel panel-default" , style="height: px;">
+                            <div class="panel-heading" , style="height: 50px;">编辑区</div>
+                            <div class="panel-body" , style="padding: 0px;">
+                                {{ form.param(class="ckeditor") }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-default") }}
+            </div>
+
+        </form>
+    </div>
+{% endblock %}

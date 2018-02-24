@@ -1,0 +1,52 @@
+{% extends "admin_base.html" %}
+{% block right %}
+    <div>
+        {% for message in get_flashed_messages(True,["log"]) %}
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                {{ message[1] }}
+            </div>
+        {% endfor %}
+        {% from "bootstrap/pagination.html" import render_pagination %}
+        <div class="row" style="padding: 4px">
+            <div class="col-md-12">
+                <form class="form-inline">
+                <div class="form-group">
+                    <button class="btn btn-primary">导出日志</button>
+                </div>
+                    <div class="form-group" style="width: 300px">
+                    <div class="file-container"
+                         style="display:inline-block;position:relative;overflow: hidden;vertical-align:middle">
+                        <button class="btn btn-success fileinput-button" type="button">导入日志</button>
+                        <input type="file" id="jobData" name="pic" onchange="loadFile(this.files[0])"
+                               style="position:absolute;top:0;left:0;font-size:34px; opacity:0">
+                    </div>
+                    <span id="filename" style="vertical-align: middle">未选择文件</span>
+                </div>
+                </form>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>节目</th>
+                <th>用户id</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in pagination.items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.program }}</td>
+                    <td>{{ item.user_id }}</td>
+                    <td><a href='{{ url_for("user.user_edit",id=item.id) }}'>编辑</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {{ render_pagination(pagination) }}
+    </div>
+{% endblock %}

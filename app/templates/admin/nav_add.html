@@ -1,0 +1,13 @@
+{% extends "admin_base.html" %}
+{% block right %}
+        {% for message in get_flashed_messages(True,["nav"]) %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message[1] }}
+    </div>
+    {% endfor %}
+    {% import "bootstrap/wtf.html" as wtf %}
+    <div style="padding-top: 10px">
+    {{ wtf.quick_form(form,form_type="horizontal",horizontal_columns=("md",4,5)) }}
+    </div>
+{% endblock %}

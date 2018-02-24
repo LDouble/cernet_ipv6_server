@@ -1,0 +1,30 @@
+{% extends "admin_base.html" %}
+{% block right %}
+    <div>
+        {% for message in get_flashed_messages(True,["api"]) %}
+    <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message[1] }}
+    </div>
+    {% endfor %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+    <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>名称</th><th>地址</th><th>描述</th><th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+                {% for item in pagination.items %}
+        <tr>
+            <td>{{ item.id }}</td><td>{{ item.api }}</td>
+            <td>{{ item.desc }}</td><td><a href='{{ url_for("user.user_edit",id=item.id)}}'>编辑</a></td>
+        </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {{render_pagination(pagination)}}
+    </div>
+{% endblock %}
