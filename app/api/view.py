@@ -35,3 +35,37 @@ def api_add():
         flash("API添加成功","api")
         return  redirect(url_for("api.api_lists"))
     return render_template("api/api_add.html", form=form, title="API添加")
+
+
+@api.route("/api_edit/", methods=["POST", "GET"])
+@admin_require
+def api_edit():
+    id = request.args.get("id")
+    form = APIForm()
+    if form.validate_on_submit():
+        data = form.data
+        data.pop("csrf_token")
+        data.pop("submit")
+        api = API(**data)
+        db.session.add(api)
+        flash("API编辑成功","api")
+        return redirect(url_for("api.api_lists"))
+    api = API.query.get(id)
+    form.method.data =api.method
+    form.api.data = api.api
+    form.desc.data = api.desc
+    form.param.data = api.param
+    return render_template("api/api_add.html", form=form, title="API编辑")
+
+
+@api.route("/api_delete/")
+@admin_require
+def api_delete():
+    id = request.args.get("id")
+    api = API.query.get(id)
+    if api:
+        db.session.delete(api)
+        flash("删除API成功", "api")
+    else:
+        flash("请求错误", "api")
+    return redirect(url_for("api.api_lists"))

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <style>
+    </style>
+    <div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>序号</th><th>接口地址</th><th>接口描述</th>
+        </tr>
+        <tr>
+            <td>{{ api.id }}</td><td>{{ api.api }}</td><td>{{ api.desc }}</td>
+        </tr>
+    </table>
+    {{ api.param |safe}}
+    </div>
+{% endblock %}

@@ -3,7 +3,6 @@ from functools import wraps
 from flask_login import current_user,AnonymousUserMixin
 from flask import abort
 
-
 def admin_require(f):
     @wraps(f)
     def decorated_function(*args,**kwargs):

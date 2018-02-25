@@ -84,6 +84,8 @@ class TVLog(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     program = db.Column(db.String(255))  # 时间节目、电视台
     user_id =db.Column(db.Integer)
+    time = db.Column(db.Float)
+    is_recommend = db.Column(db.Boolean)
 
 
 class RecommendLog(db.Model):

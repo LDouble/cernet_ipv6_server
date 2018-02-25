@@ -17,3 +17,11 @@ def forbidden(message):
     response = jsonify({'error': 'forbidden', 'message': message})
     response.status_code = 403
     return response
+
+
+def success(message,data = None):
+    return jsonify({
+        "message": message,
+        "status": 200,
+        "data": data
+    })

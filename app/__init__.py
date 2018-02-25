@@ -30,12 +30,14 @@ def create_app(config_name):
     from .tv import tv
     from .api import api
     from .api import api_1
+    from .index import index
     app.register_blueprint(user, url_prefix="/user")
     app.register_blueprint(admin, url_prefix="/admin")
     app.register_blueprint(role, url_prefix="/role")
     app.register_blueprint(tv, url_prefix="/tv")
     app.register_blueprint(api, url_prefix="/api")
     app.register_blueprint(api_1, url_prefix="/api/1.0")
+    app.register_blueprint(index, url_prefix="")
     from .common import get_nav
 
     @app.before_request
